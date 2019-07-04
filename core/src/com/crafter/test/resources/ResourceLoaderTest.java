@@ -38,6 +38,18 @@ public class ResourceLoaderTest {
 		assertEquals(mCatalog.get("iron_bar".hashCode()),reqs.get(1).mResource);
 	}
 	
+	@Test
+	public void testRequisite_EmptyCount() {
+		String JSON = "{\"test\":[{ \"resource\": \"iron_bar\"},{ \"resource\": \"wood\"}]}";
+		JsonValue array = new JsonReader().parse(JSON).get("test");
+		ArrayList<Requisite> reqs = mLoader.getRequisites(array);
+		assertEquals(2,reqs.size());
+		assertEquals(1,reqs.get(0).mCount);
+		assertEquals(1,reqs.get(1).mCount);	
+		assertEquals(mCatalog.get("iron_bar".hashCode()),reqs.get(0).mResource);
+		assertEquals(mCatalog.get("iron_bar".hashCode()),reqs.get(1).mResource);
+	}
+	
 	@Test 
 	public void testRequisite_Emtpy() {
 		String JSON = "{\"test\":[]}";
@@ -56,6 +68,33 @@ public class ResourceLoaderTest {
 		assertEquals("Iron Bar",resource.getDisplayName());
 		assertEquals(1,resource.getBaseProduction());
 		assertEquals("iron.png",resource.getSpriteFileName());
+	}
+	
+	@Test
+	public void testLoader_EmptyReqs() {
+		String JSON = "{\"iron_bar\": {\"name\": \"Iron Bar\",\"sprite\": \"iron.png\",\"production\": 1}}";
+		JsonValue value = new JsonReader().parse(JSON).get("iron_bar");	
+		Resource resource = mLoader.getResource(value);
+		assertNotNull(resource);
+		assertEquals(0,resource.getReqs().size());
+	}
+	
+	@Test
+	public void testLoader_HighTier() {
+		String JSON = "{\"iron_bar\": {\"name\": \"Iron Bar\",\"sprite\": \"iron.png\",\"production\": 1,\"tier\":3}}";
+		JsonValue value = new JsonReader().parse(JSON).get("iron_bar");	
+		Resource resource = mLoader.getResource(value);
+		assertNotNull(resource);
+		assertEquals(3,resource.getTier());
+	}
+	
+	@Test
+	public void testLoader_EmptyProduction() {
+		String JSON = "{\"iron_bar\": {\"name\": \"Iron Bar\",\"sprite\": \"iron.png\"}}";
+		JsonValue value = new JsonReader().parse(JSON).get("iron_bar");	
+		Resource resource = mLoader.getResource(value);
+		assertNotNull(resource);
+		assertEquals(1,resource.getBaseProduction());
 	}
 	
 	@Test

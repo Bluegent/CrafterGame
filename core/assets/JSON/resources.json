@@ -1,19 +1,15 @@
 { 	"wood": {
         "name": "Lumber",
-        "sprite": "wood.png",
-        "production": 1,
-        "requisites": []
+        "sprite": "wood.png"
     },
     "iron_ore": {
     	"name": "Iron Ore",
-    	"sprite": "iron_ore.png",
-    	"production": 1,
-    	"requisites": []
+    	"sprite": "iron_ore.png"
     },
     "iron_bar": {
     	"name": "Iron Bar",
     	"sprite": "iron.png",
-    	"production": 1,
+    	"tier" :2,
     	"requisites": [
     		{ "resource": "iron_ore", "count": 2 }
     	]
@@ -21,7 +17,7 @@
     "iron_tools":{
     	"name": "Iron Tools",
     	"sprite": "tools.png",
-    	"production": 1,
+    	"tier" :2,
     	"requisites": [
     		{ "resource": "iron_bar", "count": 3 },
     		{ "resource": "wood", "count": 5 }

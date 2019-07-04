@@ -13,7 +13,7 @@ public class CrafterGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("wood.png");
+		img = new Texture("icons/wood.png");
 	}
 
 	@Override
